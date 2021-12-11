@@ -22,10 +22,10 @@ def main_python_pyo3():
 
 
 def main_python_ctypes():
-    run("cargo", "build", "--package", "common_clib")
+    run("cargo", "build", "--package", "rust_clib")
     cp(
-        self_path / "target" / "debug" / "libcommon_clib.so",
-        self_path / "python_ctypes" / "_common_clib.so",
+        self_path / "target" / "debug" / "librust_clib.so",
+        self_path / "python_ctypes" / "_rust_clib.so",
     )
     python("python_usage.py", cwd=self_path / "python_ctypes")
 

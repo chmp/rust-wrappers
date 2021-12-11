@@ -3,5 +3,5 @@
 members = [
     "rust_core",
     "python_pyo3/pyo3_wrapper",
-    "common_clib",
+    "rust_clib",
 ]
