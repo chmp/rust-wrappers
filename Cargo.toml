@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+    "rust_core",
+    "pyo3/pyo3_wrapper",
+]

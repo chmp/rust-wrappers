@@ -1,0 +1,13 @@
+[package]
+name = "pyo3_wrapper"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+rust_core = { path = "../../rust_core" }
+pyo3 = { version = "0.15.1", features = ["extension-module"] }
