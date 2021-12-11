@@ -1,3 +1,5 @@
+import ctypes
+
 import rust_clib
 
 
@@ -8,6 +10,8 @@ def example():
     params["hello"] = b"world"
 
     assert len(params) == 1
+
+    print(params["hello"])
 
 
 class Params:
@@ -22,7 +26,17 @@ class Params:
         if res != 0:
             raise RuntimeError("Error during call to params_insert")
 
-    def __len__(self):
+    def __getitem__(self, name: str) -> bytes:
+        encoded_name = name.encode("utf8")
+        param_len = rust_clib.params_param_len(self._ptr, encoded_name)
+        param_data = rust_clib.params_param_data(self._ptr, encoded_name)
+
+        if param_data == None or param_len < 0:
+            raise KeyError(f"Could not find {name}")
+
+        return ctypes.string_at(param_data, param_len)
+
+    def __len__(self) -> int:
         return rust_clib.params_len(self._ptr)
 
 
