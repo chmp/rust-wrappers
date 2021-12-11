@@ -11,9 +11,9 @@ def main():
     run("cargo", "build", "--package", "pyo3_wrapper")
     cp(
         self_path / "target" / "debug" / "libpyo3_wrapper.so",
-        self_path / "pyo3" / "pyo3_wrapper.so",
+        self_path / "python_pyo3" / "pyo3_wrapper.so",
     )
-    python("python_usage.py", cwd=self_path / "pyo3")
+    python("python_usage.py", cwd=self_path / "python_pyo3")
 
 
 def cp(src, dst):
