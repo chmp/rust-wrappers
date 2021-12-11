@@ -40,4 +40,12 @@ impl Params {
         }
         self.params.insert(name, data);
     }
+
+    pub fn get(&self, name: &str) -> Option<&[u8]> {
+        self.params.get(name).map(|v| v.as_slice())
+    }
+
+    pub fn len(&self) -> usize {
+        self.params.len()
+    }
 }

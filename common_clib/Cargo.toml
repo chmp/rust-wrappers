@@ -1,0 +1,10 @@
+[package]
+name = "common_clib"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+rust_core = { path = "../rust_core" }
