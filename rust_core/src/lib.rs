@@ -48,4 +48,8 @@ impl Params {
     pub fn len(&self) -> usize {
         self.params.len()
     }
+
+    pub fn is_empty(&self) -> bool {
+        self.params.is_empty()
+    }
 }
