@@ -1,0 +1,47 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.cprohm</groupId>
+  <artifactId>rust-wrappers</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>rust-wrappers</name>
+  
+  <properties>
+    <maven.compiler.source>1.10</maven.compiler.source>
+    <maven.compiler.target>1.10</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>net.java.dev.jna</groupId>
+      <artifactId>jna</artifactId>
+      <version>5.10.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>5.4.0</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.0.0-M3</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+          <configuration>
+            <nonFilteredFileExtensions>
+              <nonFilteredFileExtension>so</nonFilteredFileExtension>
+            </nonFilteredFileExtensions>
+          </configuration>
+        </plugin>
+    </plugins>
+  </build>
+</project>
