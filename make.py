@@ -17,6 +17,7 @@ def main_all():
     main_rust_test()
     main_python_pyo3()
     main_python_ctypes()
+    main_python_wasm()
 
 
 @cmd(name="precommit")
@@ -31,10 +32,7 @@ def main_format():
     python(
         "-m",
         "black",
-        "make.py",
-        "python_ctypes/rust_clib.py",
-        "python_ctypes/python_usage.py",
-        "python_pyo3/python_usage.py",
+        *(self_path.glob("**/*.py")),
     )
 
 
@@ -56,6 +54,16 @@ def main_python_ctypes():
         self_path / "python_ctypes" / "_rust_clib.so",
     )
     python("python_usage.py", cwd=self_path / "python_ctypes")
+
+
+@cmd(name="python_wasm")
+def main_python_wasm():
+    cargo("build", "--package", "rust_clib", "--target", "wasm32-unknown-unknown")
+    cp(
+        self_path / "target" / "wasm32-unknown-unknown" / "debug" / "rust_clib.wasm",
+        self_path / "python_wasm" / "rust_clib.wasm",
+    )
+    python("python_usage.py", cwd=self_path / "python_wasm")
 
 
 @cmd(name="rust_test")

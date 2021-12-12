@@ -1,5 +1,5 @@
 import pytest
-from rust_clib import Params
+from rust_clib_wasm import Params
 
 
 params = Params()

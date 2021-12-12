@@ -87,3 +87,14 @@ pub unsafe fn params_param_data(params: &Params, name: *const c_char) -> *const 
 pub fn params_len(params: &Params) -> u64 {
     params.len() as u64
 }
+
+#[cfg(target_arch = "wasm32")]
+static mut BUFFER: Option<Vec<u8>> = None;
+
+#[cfg(target_arch = "wasm32")]
+#[no_mangle]
+pub fn allocate(len: u64) -> *const u8 {
+    let buffer = unsafe { BUFFER.get_or_insert_with(Vec::new) };
+    buffer.resize(len as usize, 0);
+    buffer.as_ptr()
+}
