@@ -12,7 +12,7 @@ Directories:
 - [`/python_wasm`](python_wasm): Python wrapper using the
   [`wasmer`][wasmer-python] Python module
 - [`/java_jna`](java_jna): Java wrapper using [`jna`](jna)
-- [`/java_wasm](java_wasm): Java wrapper using the [`wasmer`](wasmer-java) Java
+- [`/java_wasm`](java_wasm): Java wrapper using the [`wasmer`](wasmer-java) Java
   library
 
 [pyo3]: https://pyo3.rs
