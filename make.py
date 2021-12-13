@@ -12,18 +12,15 @@ cmd = lambda **kw: _se(lambda f: _gd(f).update(kw))
 arg = lambda *a, **k: _se(lambda f: _gd(f).setdefault("__args__", []).append((a, k)))
 
 
-@cmd(name="all")
-def main_all():
+@cmd(name="precommit")
+def main_precommit():
+    main_format()
     main_rust_test()
     main_python_pyo3()
     main_python_ctypes()
     main_python_wasm()
-
-
-@cmd(name="precommit")
-def main_precommit():
-    main_format()
-    main_all()
+    main_java_jna()
+    main_java_wasm()
 
 
 @cmd(name="format")
@@ -66,10 +63,55 @@ def main_python_wasm():
     python("python_usage.py", cwd=self_path / "python_wasm")
 
 
+@cmd(name="java_jna")
+def main_java_jna():
+    cargo("build", "--package", "rust_clib")
+    cp(
+        self_path / "target" / "debug" / "librust_clib.so",
+        self_path
+        / "java_jna"
+        / "src"
+        / "main"
+        / "resources"
+        / "linux-x86-64"
+        / "rust_clib.so",
+    )
+    mvn("test", cwd=self_path / "java_jna")
+
+
+@cmd(name="java_wasm")
+def main_java_wasm():
+    cargo("build", "--package", "rust_clib", "--target", "wasm32-unknown-unknown")
+    cp(
+        self_path / "target" / "wasm32-unknown-unknown" / "debug" / "rust_clib.wasm",
+        self_path / "java_wasm" / "src" / "main" / "resources" / "rust_clib.wasm",
+    )
+    mvn("test", cwd=self_path / "java_wasm")
+
+
 @cmd(name="rust_test")
 def main_rust_test():
     cargo("test")
     cargo("clippy")
+
+
+@cmd(name="install-wasmer-jar")
+@arg("jarfile", type=pathlib.Path, help="The jar file to install")
+def main_install_wasmer_jar(jarfile):
+    jarfile = jarfile.resolve()
+    local_repo = (self_path / "java_wasm" / "local").resolve()
+
+    mvn(
+        "deploy:deploy-file",
+        f"-Dfile={jarfile}",
+        "-DgroupId=org.wasmer",
+        "-DartifactId=wasmer-jni-amd64-linux",
+        "-Dversion=0.3.0",
+        "-DupdateReleaseInfo=true",
+        f"-Durl=file:{local_repo}",
+        "-DrepositoryId=local-maven-repo",
+        cwd=self_path / "java_wasm",
+    )
 
 
 def cp(src, dst):
@@ -89,6 +131,10 @@ def cargo(*args, **kwargs):
 
 def python(*args, **kwargs):
     run(sys.executable, *args, **kwargs)
+
+
+def mvn(*args, **kwargs):
+    run("mvn", *args, **kwargs)
 
 
 def main():
