@@ -14,6 +14,7 @@ Directories:
 - [`/java_jna`](java_jna): Java wrapper using [`jna`](jna)
 - [`/java_wasm`](java_wasm): Java wrapper using the [`wasmer`](wasmer-java) Java
   library
+- [`/js_wasm`](js_wasm): JavaScript wrapper running inside the browser
 
 [pyo3]: https://pyo3.rs
 [wasmer-python]: https://github.com/wasmerio/wasmer-python
