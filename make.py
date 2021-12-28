@@ -21,6 +21,7 @@ def main_precommit():
     main_python_wasm()
     main_java_jna()
     main_java_wasm()
+    main_js_wasm()
 
 
 @cmd(name="format")
@@ -87,6 +88,15 @@ def main_java_wasm():
         self_path / "java_wasm" / "src" / "main" / "resources" / "rust_clib.wasm",
     )
     mvn("test", cwd=self_path / "java_wasm")
+
+
+@cmd(name="js_wasm")
+def main_js_wasm():
+    cargo("build", "--package", "rust_clib", "--target", "wasm32-unknown-unknown")
+    cp(
+        self_path / "target" / "wasm32-unknown-unknown" / "debug" / "rust_clib.wasm",
+        self_path / "js_wasm" / "rust_clib.wasm",
+    )
 
 
 @cmd(name="rust_test")
