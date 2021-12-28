@@ -5,6 +5,9 @@ mod test;
 
 use std::collections::HashMap;
 
+use base64::DecodeError;
+use serde::{Deserialize, Serialize};
+
 ignore! {
 
 pub struct Params {
@@ -23,7 +26,8 @@ impl Params {
 
 }
 
-#[derive(Default, Clone)]
+#[derive(Default, Clone, Deserialize)]
+#[serde(try_from = "SerDeParams", into = "SerDeParams")]
 pub struct Params {
     params: HashMap<String, Vec<u8>>,
     names: Vec<String>,
@@ -51,5 +55,38 @@ impl Params {
 
     pub fn is_empty(&self) -> bool {
         self.params.is_empty()
+    }
+}
+
+#[derive(Clone, Debug, Default, Serialize, Deserialize)]
+struct SerDeParams {
+    params: HashMap<String, String>,
+}
+
+impl TryFrom<SerDeParams> for Params {
+    type Error = DecodeError;
+
+    fn try_from(value: SerDeParams) -> Result<Params, DecodeError> {
+        let mut res = Params::new();
+
+        for (key, value) in value.params {
+            res.insert(key, base64::decode(value)?);
+        }
+
+        Ok(res)
+    }
+}
+
+impl From<Params> for SerDeParams {
+    fn from(value: Params) -> Self {
+        let mut res = SerDeParams {
+            params: Default::default(),
+        };
+
+        for (key, value) in value.params {
+            res.params.insert(key, base64::encode(value));
+        }
+
+        res
     }
 }
