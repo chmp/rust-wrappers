@@ -1,3 +1,4 @@
 black
+cffi
 pytest
 wasmer

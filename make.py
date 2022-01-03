@@ -18,6 +18,7 @@ def main_precommit():
     main_rust_test()
     main_python_pyo3()
     main_python_ctypes()
+    main_python_cffi()
     main_python_wasm()
     main_java_jna()
     main_java_wasm()
@@ -52,6 +53,16 @@ def main_python_ctypes():
         self_path / "python_ctypes" / "_rust_clib.so",
     )
     python("python_usage.py", cwd=self_path / "python_ctypes")
+
+
+@cmd(name="python_cffi")
+def main_python_cffi():
+    cargo("build", "--package", "rust_clib")
+    cp(
+        self_path / "target" / "debug" / "librust_clib.so",
+        self_path / "python_cffi" / "_rust_clib.so",
+    )
+    python("python_usage.py", cwd=self_path / "python_cffi")
 
 
 @cmd(name="python_wasm")
