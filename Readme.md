@@ -1,5 +1,27 @@
 # Demo code for different ways of wrapping Rust code
 
+This repository showcases different ways of wrapping Rust code in different
+language (Python, Java, JavaScript). The running example is an object storing
+parameters as byte arrays (see [here](rust_core/src/lib.rs) for more details). 
+
+The different examples can be executed with the `make.py` script. Currently the
+ code assumes a Linux system. To run all execute:
+
+```bash
+python make.py all
+```
+
+To run the Java examples, first the [Wasmer][wasmer-java] jar needs to be
+installed into the local repository. To do so,
+
+1. Fetch the 0.3.0 jar from the release page in the [wasmer-java][wasmer-java]
+   repository
+2. Run
+  
+    ```python
+    python make.py install-wasmer-jar {PATH_TO_JAR}
+    ```
+
 Directories:
 
 - [`/rust_core`](rust_core): the wrapped rust library
@@ -26,4 +48,3 @@ Directories:
 [wasmer-java]: https://github.com/wasmerio/wasmer-java
 [jna]: https://github.com/java-native-access/jna
 [browser-wasm]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly
-

@@ -16,6 +16,11 @@ arg = lambda *a, **k: _se(lambda f: _gd(f).setdefault("__args__", []).append((a,
 def main_precommit():
     main_format()
     main_rust_test()
+    main_all()
+
+
+@cmd(name="all")
+def main_all():
     main_python_pyo3()
     main_python_ctypes()
     main_python_cffi()

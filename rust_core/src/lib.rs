@@ -1,30 +1,7 @@
-mod util;
-
-#[cfg(test)]
-mod test;
-
 use std::collections::HashMap;
 
 use base64::DecodeError;
 use serde::{Deserialize, Serialize};
-
-ignore! {
-
-pub struct Params {
-    /* ... */
-}
-
-impl Params {
-    pub fn new() -> Self {
-        /* ... */
-    }
-
-    pub fn insert(&mut self, name: String, data: Vec<u8>) {
-        /* ... */
-    }
-}
-
-}
 
 #[derive(Default, Clone, Deserialize)]
 #[serde(try_from = "SerDeParams", into = "SerDeParams")]
@@ -90,3 +67,6 @@ impl From<Params> for SerDeParams {
         res
     }
 }
+
+#[cfg(test)]
+mod test;
