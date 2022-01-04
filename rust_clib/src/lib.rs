@@ -4,12 +4,12 @@ use std::{ffi::CStr, mem, os::raw::c_char, ptr, slice};
 use rust_core::Params;
 
 #[no_mangle]
-pub fn params_new() -> Box<Params> {
+pub extern "C" fn params_new() -> Box<Params> {
     Box::new(Params::new())
 }
 
 #[no_mangle]
-pub fn params_free(params: Box<Params>) {
+pub extern "C" fn params_free(params: Box<Params>) {
     mem::drop(params);
 }
 
@@ -21,7 +21,7 @@ pub fn params_free(params: Box<Params>) {
 /// not alias any memory region owned by `params`.
 ///
 #[no_mangle]
-pub unsafe fn params_insert(
+pub unsafe extern "C" fn params_insert(
     params: &mut Params,
     name: *const c_char,
     data_ptr: *const u8,
@@ -49,7 +49,7 @@ pub unsafe fn params_insert(
 /// `name` must be a valid NULL-terminated UTF8-encoded string.
 ///
 #[no_mangle]
-pub unsafe fn params_param_len(params: &Params, name: *const c_char) -> i64 {
+pub unsafe extern "C" fn params_param_len(params: &Params, name: *const c_char) -> i64 {
     let name = unsafe { CStr::from_ptr(name) };
     let name = match name.to_str() {
         Ok(name) => name,
@@ -70,7 +70,7 @@ pub unsafe fn params_param_len(params: &Params, name: *const c_char) -> i64 {
 /// objects must not be modified, while the returned pointer is used.
 ///
 #[no_mangle]
-pub unsafe fn params_param_data(params: &Params, name: *const c_char) -> *const u8 {
+pub unsafe extern "C" fn params_param_data(params: &Params, name: *const c_char) -> *const u8 {
     let name = unsafe { CStr::from_ptr(name) };
     let name = match name.to_str() {
         Ok(name) => name,
@@ -84,7 +84,7 @@ pub unsafe fn params_param_data(params: &Params, name: *const c_char) -> *const 
 }
 
 #[no_mangle]
-pub fn params_len(params: &Params) -> u64 {
+pub extern "C" fn params_len(params: &Params) -> u64 {
     params.len() as u64
 }
 
@@ -93,7 +93,7 @@ static mut BUFFER: Option<Vec<u8>> = None;
 
 #[cfg(target_arch = "wasm32")]
 #[no_mangle]
-pub fn allocate(len: u64) -> *const u8 {
+pub extern "C" fn allocate(len: u64) -> *const u8 {
     let buffer = unsafe { BUFFER.get_or_insert_with(Vec::new) };
     buffer.resize(len as usize, 0);
     buffer.as_ptr()
