@@ -42,11 +42,12 @@ Directories:
   using [ctypes][ctypes]
 - [`/python_wasm`](python_wasm): Python wrapper using the
   [`wasmer`][wasmer-python] Python module
-- [`/java_jna`](java_jna): Java wrapper using [`jna`](jna)
+- [`/java_jna`](java_jna): Java wrapper using [`jna`](jna) for the
+  [common C library](rust_clib)
 - [`/java_wasm`](java_wasm): Java wrapper using the [`wasmer`](wasmer-java) Java
-  library
+  library for the [common C library](rust_clib)
 - [`/js_wasm`](js_wasm): JavaScript wrapper running inside the browser using the
-  browser [WebAssembly API][browser-wasm]
+  browser [WebAssembly API][browser-wasm] for the [common C library](rust_clib)
 - [`/js_wasm_bindgen`](js_wasm_bindgen): JavaScript wrapper running inside the
   browser using [wasm-bindgen][wasm-bindgen] to generate the glue code
 
