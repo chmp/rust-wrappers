@@ -115,6 +115,23 @@ def main_js_wasm():
     )
 
 
+@cmd(name="js_wasm_bindgen")
+def main_js_wasm_bindgen():
+    cargo("build", "--package", "js_wasm_bindgen", "--target", "wasm32-unknown-unknown")
+    run(
+        "wasm-bindgen",
+        "--target",
+        "web",
+        "--out-dir",
+        self_path / "js_wasm_bindgen" / "example",
+        self_path
+        / "target"
+        / "wasm32-unknown-unknown"
+        / "debug"
+        / "js_wasm_bindgen.wasm",
+    )
+
+
 @cmd(name="rust_test")
 def main_rust_test():
     cargo("test")

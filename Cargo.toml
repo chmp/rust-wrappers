@@ -4,4 +4,5 @@ members = [
     "rust_core",
     "python_pyo3/pyo3_wrapper",
     "rust_clib",
+    "js_wasm_bindgen",
 ]

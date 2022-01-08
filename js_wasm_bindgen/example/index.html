@@ -1,0 +1,18 @@
+<html>
+<head>
+    <meta charset="utf8">
+    <title>WebAssembly Demo</title>
+</head>
+<body>
+<h1>Source</h1>
+<pre id="source"></pre>
+
+<h1>Output</h1>
+<pre id="output"></pre>
+
+<script type="module">
+    import { main } from "./example.js";
+    main().catch(reason => console.error(reason))
+</script>
+</body>
+</html>

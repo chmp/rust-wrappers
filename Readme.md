@@ -2,7 +2,7 @@
 
 This repository showcases different ways of wrapping Rust code in different
 language (Python, Java, JavaScript). The running example is an object storing
-parameters as byte arrays (see [here](rust_core/src/lib.rs) for more details). 
+parameters as byte arrays (see [here](rust_core/src/lib.rs) for more details).
 
 The different examples can be executed with the `make.py` script. Currently the
  code assumes a Linux system. To run all execute:
@@ -17,10 +17,17 @@ installed into the local repository. To do so,
 1. Fetch the 0.3.0 jar from the release page in the [wasmer-java][wasmer-java]
    repository
 2. Run
-  
+
     ```python
     python make.py install-wasmer-jar {PATH_TO_JAR}
     ```
+
+To generate the `js_wasm_bindgen` example, the [`wasm-bindgen`][wasm-bindgen]
+CLI needs to be installed. To so run:
+
+```bash
+cargo install wasm-bindgen-cli
+```
 
 Directories:
 
@@ -40,6 +47,8 @@ Directories:
   library
 - [`/js_wasm`](js_wasm): JavaScript wrapper running inside the browser using the
   browser [WebAssembly API][browser-wasm]
+- [`/js_wasm_bindgen`](js_wasm_bindgen): JavaScript wrapper running inside the
+  browser using [wasm-bindgen][wasm-bindgen] to generate the glue code
 
 [cffi]: https://cffi.readthedocs.io/en/latest/
 [ctypes]: https://docs.python.org/3/library/ctypes.html
@@ -48,3 +57,4 @@ Directories:
 [wasmer-java]: https://github.com/wasmerio/wasmer-java
 [jna]: https://github.com/java-native-access/jna
 [browser-wasm]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly
+[wasm-bindgen]: https://github.com/rustwasm/wasm-bindgen
