@@ -5,14 +5,14 @@ language (Python, Java, JavaScript). The running example is an object storing
 parameters as byte arrays (see [here](rust_core/src/lib.rs) for more details).
 
 The different examples can be executed with the `make.py` script. Currently the
- code assumes a Linux system. To run all execute:
+ code assumes a Linux system. To run all, execute:
 
 ```bash
 python make.py all
 ```
 
-To run the Java examples, first the [Wasmer][wasmer-java] jar needs to be
-installed into the local repository. To do so,
+To run the Java WebAssembly examples, first the [Wasmer][wasmer-java] jar needs
+to be installed into the local repository. To do so,
 
 1. Fetch the 0.3.0 jar from the release page in the [wasmer-java][wasmer-java]
    repository
@@ -23,7 +23,7 @@ installed into the local repository. To do so,
     ```
 
 To generate the `js_wasm_bindgen` example, the [`wasm-bindgen`][wasm-bindgen]
-CLI needs to be installed. To so run:
+CLI needs to be installed via:
 
 ```bash
 cargo install wasm-bindgen-cli
@@ -32,7 +32,7 @@ cargo install wasm-bindgen-cli
 Directories:
 
 - [`/rust_core`](rust_core): the wrapped rust library
-- [`/rust_clib`](rust_clib): a common C library used from Python, Java and
+- [`/rust_clib`](rust_clib): the C-ABI library used from Python, Java and
   JavaScript
 - [`/python_pyo3`](pyo3): example of using [PyO3][pyo3] to wrap the rust library
   for Python

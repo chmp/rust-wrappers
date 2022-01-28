@@ -98,6 +98,10 @@ def main_java_jna():
 
 @cmd(name="java_wasm")
 def main_java_wasm():
+    local_repo = (self_path / "java_wasm" / "local").resolve()
+    if not list(local_repo.glob("**/wasmer-jni-*.jar")):
+        print("Could not find the wasmer jar. Please install it first.")
+
     cargo("build", "--package", "rust_clib", "--target", "wasm32-unknown-unknown")
     cp(
         self_path / "target" / "wasm32-unknown-unknown" / "debug" / "rust_clib.wasm",
@@ -117,6 +121,9 @@ def main_js_wasm():
 
 @cmd(name="js_wasm_bindgen")
 def main_js_wasm_bindgen():
+    if shutil.which("wasm-bindgen") is None:
+        print("Could not find wasm-bindget. Please install it first.")
+
     cargo("build", "--package", "js_wasm_bindgen", "--target", "wasm32-unknown-unknown")
     run(
         "wasm-bindgen",
