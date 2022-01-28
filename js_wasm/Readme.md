@@ -1,4 +1,4 @@
-# Javascript example
+# `js_wasm` - JavaScript example using WebAssembly
 
 Files:
 
@@ -12,3 +12,9 @@ Files:
 The example has to be run in a local web server, as it dynamically loads the
 WebAssembly module. You can  start for example via `python -m http.server`.
 Afterwards, the example can be access at "http://localhost:8080". 
+
+To build the  this WebAssembly module, navigate to the project root and run
+
+```bash
+python make.py js_wasm
+```
