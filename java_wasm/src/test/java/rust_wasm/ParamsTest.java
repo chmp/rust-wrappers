@@ -1,4 +1,4 @@
-package rust_jna;
+package rust_wasm;
 
 import java.io.UnsupportedEncodingException;
 

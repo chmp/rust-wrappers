@@ -1,4 +1,4 @@
-package rust_jna;
+package rust_wasm;
 
 public class Params implements AutoCloseable {
     WasmRuntime runtime;
